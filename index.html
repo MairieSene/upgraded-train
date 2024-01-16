@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<div id="simulateur-tarif-cantine" class="formulaire">
+  <label for="quotient-familial">Entrez votre quotient familial :</label>
+  <input type="number" id="quotient-familial" step="0.01" min="0" />
+  <button id="calculer">Calculer</button>
+  <div id="resultat">Tarif journée ALSH : <b><span id="tarif"></span></b></div>
+</div>
+</html>
+<script>
+    document.getElementById('calculer').addEventListener('click', function() {
+    var quotientFamilial = parseFloat(document.getElementById('quotient-familial').value);
+    var tarif = calculerTarif(quotientFamilial);
+    if (quotientFamilial < 0 || isNaN(quotientFamilial)) {
+        document.getElementById('tarif').innerText = "";
+    }
+    if (quotientFamilial >= 0) {
+        document.getElementById('tarif').innerText = tarif.toFixed(2) + " €";
+    }
+  });
+
+  function calculerTarif(quotientFamilial) {
+    if (quotientFamilial >= 0 & quotientFamilial <= 600) {
+      return 3.93; // Tranche 1
+    } else if (quotientFamilial > 600 & quotientFamilial <= 800) {
+      return 0.0303*quotientFamilial - 14.27; // Tranche 2
+    } else if (quotientFamilial > 800 & quotientFamilial <= 1800) {
+      return 0.012*quotientFamilial + 0.40; // Tranche 3
+    } else if (quotientFamilial > 1800){
+      return 22; // Tranche 4
+    } else {
+      return 0;
+    }
+  }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+    #simulateur-tarif-cantine {
+      max-width: 320px;
+      padding: 20px;
+      border-radius: 10px;
+      margin : 0 auto;
+    }
+    #quotient-familial {
+        width: 100px;
+    }
+    .formulaire {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #162D4A;
+        color: white;
+        font-size: 14px;
+    }
+    .formulaire button {
+        background-color: #E44022;
+        border: none;
+        color: white;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 55px;
+        transition-duration: 0.4s;
+    }
+    .formulaire button:hover {
+        -moz-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2);
+        -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2);
+        box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2);
+    }
+    #resultat {
+      margin-top: 20px;
+    }
+  </style>
+  
