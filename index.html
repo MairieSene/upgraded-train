@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<div id="simulateur-tarif-cantine" class="formulaire">
+<div id="simulateur-tarif-alsh" class="formulaire">
   <label for="quotient-familial">Entrez votre quotient familial :</label>
   <input type="number" id="quotient-familial" step="0.01" min="0" />
   <button id="calculer">Calculer</button>
@@ -20,14 +20,16 @@
   });
 
   function calculerTarif(quotientFamilial) {
-    if (quotientFamilial >= 0 & quotientFamilial <= 600) {
-      return 3.93; // Tranche 1
-    } else if (quotientFamilial > 600 & quotientFamilial <= 800) {
-      return 0.0303*quotientFamilial - 14.27; // Tranche 2
-    } else if (quotientFamilial > 800 & quotientFamilial <= 1800) {
-      return 0.012*quotientFamilial + 0.40; // Tranche 3
-    } else if (quotientFamilial > 1800){
-      return 22; // Tranche 4
+    if (quotientFamilial >= 0 & quotientFamilial < 600) {
+      return 3.93; // Tranche A
+    } else if (quotientFamilial >= 600 & quotientFamilial < 800) {
+      return 0.0291*quotientFamilial - 13.52; // Tranche B
+    } else if (quotientFamilial >= 800 & quotientFamilial < 1440) {
+      return 0.0118*quotientFamilial + 0.31; // Tranche C
+    } else if (quotientFamilial >= 1440 & quotientFamilial < 1670) {
+      return 0.0230*quotientFamilial - 15.88; // Tranche D
+    } else if (quotientFamilial >= 1670){
+      return 22.60; // Tranche E
     } else {
       return 0;
     }
@@ -37,7 +39,7 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 
-    #simulateur-tarif-cantine {
+    #simulateur-tarif-alsh {
       max-width: 320px;
       padding: 20px;
       border-radius: 10px;
