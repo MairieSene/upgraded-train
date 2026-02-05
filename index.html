@@ -5,6 +5,8 @@
   <input type="number" id="quotient-familial" step="0.01" min="0" />
   <button id="calculer">Calculer</button>
   <div id="resultat">Tarif journée ALSH : <b><span id="tarif"></span></b></div>
+  <div id="resultat-demi-journee-sans-repas">Tarif demi-journée sans repas : <b><span id="tarif-demi-journee-sans-repas"></span></b></div>
+  <div id="resultat-demi-journee-avec-repas">Tarif demi-journée avec repas : <b><span id="tarif-demi-journee-avec-repas"></span></b></div>
 </div>
 </html>
 <script>
@@ -13,23 +15,23 @@
     var tarif = calculerTarif(quotientFamilial);
     if (quotientFamilial < 0 || isNaN(quotientFamilial)) {
         document.getElementById('tarif').innerText = "";
+        document.getElementById('tarif-demi-journee-sans-repas').innerText = "";
+        document.getElementById('tarif-demi-journee-avec-repas').innerText = "";
     }
     if (quotientFamilial >= 0) {
         document.getElementById('tarif').innerText = tarif.toFixed(2) + " €";
+        document.getElementById('tarif-demi-journee-sans-repas').innerText = (tarif * 0.6).toFixed(2) + " €";
+        document.getElementById('tarif-demi-journee-avec-repas').innerText = (tarif * 0.7).toFixed(2) + " €";
     }
   });
 
   function calculerTarif(quotientFamilial) {
-    if (quotientFamilial >= 0 & quotientFamilial < 600) {
-      return 3.93; // Tranche A
-    } else if (quotientFamilial >= 600 & quotientFamilial < 800) {
-      return 0.0291*quotientFamilial - 13.52; // Tranche B
-    } else if (quotientFamilial >= 800 & quotientFamilial < 1440) {
-      return 0.0118*quotientFamilial + 0.31; // Tranche C
-    } else if (quotientFamilial >= 1440 & quotientFamilial < 1670) {
-      return 0.0230*quotientFamilial - 15.88; // Tranche D
-    } else if (quotientFamilial >= 1670){
-      return 22.60; // Tranche E
+    if (quotientFamilial >= 0 && quotientFamilial < 600) {
+      return 0.00 * quotientFamilial + 4.052; // Tranche 1
+    } else if (quotientFamilial >= 600 && quotientFamilial < 1720.46) {
+      return 0.01716 * quotientFamilial - 6.246; // Tranche 2
+    } else if (quotientFamilial >= 1720.46) {
+      return 0.00 * quotientFamilial + 23.283; // Tranche 3
     } else {
       return 0;
     }
